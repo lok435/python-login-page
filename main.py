@@ -105,5 +105,10 @@ def profile():
     # User is not loggedin redirect to login page
     return redirect(url_for('login'))  
 
+@app.route('/logout')
+def logout():
+    session.pop('username',None)
+    return redirect(url_for('login'))
+
 if __name__ =='__main__':
 	app.run(Debug=True)
