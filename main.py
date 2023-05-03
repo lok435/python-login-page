@@ -3,6 +3,8 @@ from flask_mysqldb import MySQL
 import MySQLdb.cursors
 import re
 
+
+
 app = Flask(__name__)
 
 # Change this to your secret key (can be anything, it's for extra protection)
@@ -12,7 +14,7 @@ app.secret_key = '1a2b3c4d5e'
 app.config['MYSQL_HOST'] = 'localhost'
 app.config['MYSQL_USER'] = 'root'
 app.config['MYSQL_PASSWORD'] = 'Anand@123'
-app.config['MYSQL_DB'] = "anand"
+app.config['MYSQL_DB'] = 'College'
 
 # Intialize MySQL
 mysql = MySQL(app)
@@ -26,6 +28,10 @@ def login():
         # Create variables for easy access
         username = request.form['username']
         password = request.form['password']
+        
+        print(username)
+        print(type(username))
+        print('--------------')
         # Check if account exists using MySQL
         cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
         cursor.execute('SELECT * FROM accounts WHERE username = %s AND password = %s', (username, password))
@@ -91,7 +97,7 @@ def home():
     # Check if user is loggedin
     if 'loggedin' in session:
         # User is loggedin show them the home page
-        return render_template('home/home.html', username=session['username'], title="Home")
+        return render_template('home/home.html', username=session['username'],title="Home")
     # User is not loggedin redirect to login page
     return redirect(url_for('login'))    
 
@@ -100,12 +106,14 @@ def home():
 def profile():
     # Check if user is loggedin
     if 'loggedin' in session:
-	username=session['username']
+        # User is loggedin show them the home page
+        username=session['username']
         cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
         cursor.execute('SELECT email FROM accounts WHERE username = %s', [username])
         mail = cursor.fetchone()
-        # User is loggedin show them the home page
-        return render_template('auth/profile.html', username=session['username'], email=mail['email'], title="Profile")
+        cursor.execute('SELECT password FROM accounts WHERE username = %s', [username])
+        password = cursor.fetchone()
+        return render_template('auth/profile.html', username=session['username'], email=mail['email'], password=password['password'], title="Profile")
     # User is not loggedin redirect to login page
     return redirect(url_for('login'))  
 
@@ -113,6 +121,7 @@ def profile():
 def logout():
     session.pop('username',None)
     return redirect(url_for('login'))
+
 
 if __name__ =='__main__':
 	app.run(Debug=True)
