@@ -100,8 +100,12 @@ def home():
 def profile():
     # Check if user is loggedin
     if 'loggedin' in session:
+	username=session['username']
+        cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+        cursor.execute('SELECT email FROM accounts WHERE username = %s', [username])
+        mail = cursor.fetchone()
         # User is loggedin show them the home page
-        return render_template('auth/profile.html', username=session['username'],title="Profile")
+        return render_template('auth/profile.html', username=session['username'], email=mail['email'], title="Profile")
     # User is not loggedin redirect to login page
     return redirect(url_for('login'))  
 
