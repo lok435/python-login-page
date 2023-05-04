@@ -2,6 +2,7 @@
 
 ## pre-requirement 
 Python >3.8
+RHEL 8
 
 
 ## DB creation and table setup
@@ -18,8 +19,10 @@ CREATE TABLE accounts (
     password varchar(255) NOT NULL,
     email varchar(255),
     designation varchar(255) NOT NULL,
+    about_yourself varchar(255) NOT NULL,
     PRIMARY KEY (id)
 );
+
 ```
 
 ## How to run the Application
