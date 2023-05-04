@@ -80,46 +80,28 @@
 </head>
 
 <body class="loggedin">
-      <h2 style="text-align:center"> <h1>Hello {{ username }}, This is our Team </h1></h2>
-      <div class="row">
-        <div class="column">
-          <div class="card">
-            <div class="container">
-              <h2>Anand Reddy</h2>
-              <p class="title">DevOps Engineer</p>
-              <p>I am working as DevOps with 6+ years of experience.</p>
-              <p>aws.anand71@gmail.com</p>
-              <p><button class="button">Contact</button></p>
+      <h2 style="text-align:center"></h2>
+        <div class="row">
+          <h4>Hello {{ username }}, This is your Team </h4>
+          {% for data in all_data %}
+            <div class="column">
+              <div class="card">
+                <div class="container">
+                  <h2>{{data['fullname']}}</h2>
+                  <p class="title"><b>{{data['designation']}}</b></p>
+                  <!-- <p></p> -->
+                  <p><b>Employee Id : </b>{{data['id']}}</p>
+                  <p><b>Mail : </b>{{data['email']}}</p>
+                  <p><b>About Me : </b>{{data['about_yourself']}}</p>
+                  <p><button class="button">Contact</button></p>
+                </div>
+              </div>
             </div>
-          </div>
+          {% endfor %}
         </div>
       
-        <div class="column">
-          <div class="card">
-            <div class="container">
-              <h2>Kusuma N</h2>
-              <p class="title">HR Executive</p>
-              <p>Working as a HR executive with 3 years of experience.</p>
-              <p>kusuman@gmail.com</p>
-              <p><button class="button">Contact</button></p>
-            </div>
-          </div>
-        </div>
-        
-        <div class="column">
-          <div class="card">
-            <div class="container">
-              <h2>John Doe</h2>
-              <p class="title">Designer</p>
-              <p>I am a Designer with 12 years of experience.</p>
-              <p>john@example.com</p>
-              <p><button class="button">Contact</button></p>
-            </div>
-          </div>
-        </div>
-      </div>
-
 </body>
+
 
 </html>
 
