@@ -79,22 +79,26 @@
 </head>
 
 <body class="loggedin">
-      <h2 style="text-align:center"> <h1>Hello {{ username }}, This is our Team </h1></h2>
+    
+      <h2 style="text-align:center"> <h1>Hello {{ all_data['username'] }}, This is our Team </h1></h2>
       <div class="row">
         <div class="column">
           <div class="card">
             <!-- <img src="https://www.w3schools.com/w3images/team2.jpg" alt="Jane" style="width:100%"> -->
-            <div class="container">
-              <h2>{{ fullname }}</h2>
-              <p class="title">{{ designation }}</p>
-              <p>User Name       : {{ username }} </p>
-              <p>Mail            : {{ email }}</p>
-              <p>Password        : {{ password }}</p>
-              <p><button class="button">Contact</button></p>
-            </div>
+              <div class="container">
+                  <h2>{{ all_data['fullname'] }}</h2>
+                  <p class="title">{{ all_data['designation'] }}</p>
+                  <p><b>User Name</b>       : {{ all_data['username'] }} </p>
+                  <p><b>Employee Id</b>     : {{ all_data['id'] }}</p>
+                  <p><b>Mail</b>            : {{ all_data['email'] }}</p>
+                  <p><b>Password</b>        : {{ all_data['password'] }}</p>
+                  <p><b>About Me</b>        : {{ all_data['about_yourself'] }}</p>
+                  <p><button class="button">Contact</button></p>
+              </div>
           </div>
         </div>
 </body>
+
 
 </html>
 
