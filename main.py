@@ -3,8 +3,6 @@ from flask_mysqldb import MySQL
 import MySQLdb.cursors
 import re
 
-
-
 app = Flask(__name__)
 
 # Change this to your secret key (can be anything, it's for extra protection)
@@ -57,11 +55,13 @@ def login():
 @app.route('/pythonlogin/register', methods=['GET', 'POST'])
 def register():
     # Check if "username", "password" and "email" POST requests exist (user submitted form)
-    if request.method == 'POST' and 'username' in request.form and 'password' in request.form and 'email' in request.form:
+    if request.method == 'POST' and 'username' in request.form and 'password' in request.form and 'email' in request.form and 'designation' in request.form and 'fullname' in request.form:
         # Create variables for easy access
         username = request.form['username']
         password = request.form['password']
         email = request.form['email']
+        designation = request.form['designation']
+        fullname = request.form['fullname']
                 # Check if account exists using MySQL
         cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
         # cursor.execute('SELECT * FROM accounts WHERE username = %s', (username))
@@ -78,7 +78,7 @@ def register():
             flash("Incorrect username/password!", "danger")
         else:
         # Account doesnt exists and the form data is valid, now insert new account into accounts table
-            cursor.execute('INSERT INTO accounts VALUES (NULL, %s, %s, %s)', (username,email, password))
+            cursor.execute('INSERT INTO accounts VALUES (NULL, %s, %s, %s, %s, %s)', (username, fullname, password, email, designation))
             mysql.connection.commit()
             flash("You have successfully registered!", "success")
             return redirect(url_for('login'))
@@ -97,7 +97,9 @@ def home():
     # Check if user is loggedin
     if 'loggedin' in session:
         # User is loggedin show them the home page
-        return render_template('home/home.html', username=session['username'],title="Home")
+        # cursor.execute('SELECT fullname FROM accounts WHERE username = %s', [username])
+        # fullname = cursor.fetchone()
+        return render_template('home/home.html', username=session['username'], title="Home")
     # User is not loggedin redirect to login page
     return redirect(url_for('login'))    
 
@@ -113,7 +115,11 @@ def profile():
         mail = cursor.fetchone()
         cursor.execute('SELECT password FROM accounts WHERE username = %s', [username])
         password = cursor.fetchone()
-        return render_template('auth/profile.html', username=session['username'], email=mail['email'], password=password['password'], title="Profile")
+        cursor.execute('SELECT designation FROM accounts WHERE username = %s', [username])
+        designation = cursor.fetchone()
+        cursor.execute('SELECT fullname FROM accounts WHERE username = %s', [username])
+        fullname = cursor.fetchone()
+        return render_template('auth/profile.html', username=session['username'], email=mail['email'], password=password['password'], designation=designation['designation'], fullname=fullname['fullname'], title="Profile")
     # User is not loggedin redirect to login page
     return redirect(url_for('login'))  
 
