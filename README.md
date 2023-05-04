@@ -14,8 +14,10 @@ create database anand;
 CREATE TABLE accounts (
     id int NOT NULL AUTO_INCREMENT,
     username varchar(255) NOT NULL,
-    email varchar(255),
+    fullname varchar(255) NOT NULL,
     password varchar(255) NOT NULL,
+    email varchar(255),
+    designation varchar(255) NOT NULL,
     PRIMARY KEY (id)
 );
 ```
