@@ -72,6 +72,21 @@ yum -y install gcc gcc-c++ kernel-devel
 yum -y install mysql-devel openssl-devel
 ```
 
+# Get the code from GitHub
+```
+cd /opt
+git clone https://github.com/lazy-anand/python-login-page.git
+cd python-login-page
+```
+
+# Chnage the DB details in main.py file 
+```
+app.config['MYSQL_HOST'] = '<your DB IP>'
+app.config['MYSQL_USER'] = 'root'
+app.config['MYSQL_PASSWORD'] = '<your DB password>'
+app.config['MYSQL_DB'] = '<Your DB>'
+```
+
 ## Create a Vertual ENV
 ```
 python3.9 -m venv venv
