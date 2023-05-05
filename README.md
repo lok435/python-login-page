@@ -17,6 +17,7 @@ mysql -u root -p <your pass>
 # Create a Database
 ```
 create database anand;
+use anand;
 ```
 
 # Create a Table
