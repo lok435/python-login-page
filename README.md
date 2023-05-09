@@ -41,6 +41,13 @@ CREATE USER 'root'@'%' IDENTIFIED BY 'Anand@123';
 GRANT ALL PRIVILEGES ON *.* TO 'root'@'%';
 FLUSH PRIVILEGES;
 ```
+## to check the data tables;
+show databases;
+show tables;
+select * from table-names
+
+
+
 
 # ( Server -02 ) Python Installation on RHEL 8.4
 -----------------------------------------------
