@@ -3,6 +3,7 @@
 ```
 yum update -y
 dnf -y install @mysql
+yum install mysql-server
 systemctl enable mysqld.service
 systemctl start mysqld.service
 systemctl status mysqld.service
